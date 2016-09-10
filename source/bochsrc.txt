@@ -1,0 +1,5 @@
+ata0-slave:  type=cdrom, path="./bootable.iso", status=inserted
+boot: cdrom
+display_library: sdl
+log: bochsout.txt
+cpu: count=1, ips=60000000, reset_on_triple_fault=0, ignore_bad_msrs=1

@@ -81,3 +81,63 @@ void monitor_clear(){
     monitor_video_memory[i] = blank;
   }
 }
+
+void monitor_write_decimal(u32int n){
+  if(n == 0){
+    monitor_put('0');
+    return;
+  }
+
+  s32int acc = n;
+  char c[32];
+  int i =0;
+
+  while(acc > 0){
+    c[i] = '0' + acc % 10;
+    acc /= 10;
+    i++;
+  }
+
+  c[i] = 0;
+
+  char c2[32];
+
+  c2[i--] = 0;
+  int j = 0;
+
+  while(i >= 0){
+    c2[i--] = c[j++];
+  }
+
+  monitor_write(c2);
+}
+
+void monitor_write_hex(u32int n){
+  s32int tmp;
+  char noZeros = 1;
+  monitor_write("0x");
+
+  for(int i = 28; i > 0; i -= 4){
+    tmp = (n >> i) & 0xF;
+
+    if(tmp == 0 && noZeros != 0){
+      continue;
+    }
+
+    if(tmp >= 0xA){
+      noZeros = 0;
+      monitor_put(tmp - 0xA + 'a');
+    }else{
+      noZeros = 0;
+      monitor_put(tmp + '0');
+    }
+  }
+
+  tmp = n & 0xF;
+
+  if(tmp >= 0xA){
+    monitor_put(tmp - 0xA + 'a');
+  }else{
+    monitor_put(tmp + '0');
+  }
+}

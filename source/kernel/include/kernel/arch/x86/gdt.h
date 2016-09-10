@@ -20,7 +20,7 @@ struct gdt_pointer_struct{
 typedef struct gdt_entry_struct gdt_entry_t;
 typedef struct gdt_pointer_struct gdt_pointer_t;
 
-void init_gdt();
-void init_idt();
+int init_gdt();
+int init_idt();
 
 #endif
